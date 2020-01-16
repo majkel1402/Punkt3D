@@ -16,24 +16,23 @@ int main()
     Point3D C;
     C=B;
     cout<<"\n"<<"-----------------------"<<endl;
-
     cout<<"\n"<<"--------Point3D-Funkcje--------"<<endl;
     cout<<"\n"<<"Point3D.Print()"<<endl;
-    A.Print_Point3D();
-    B.Print_Point3D();
-    C.Print_Point3D();
+    A.PrintPoint3D();
+    B.PrintPoint3D();
+    C.PrintPoint3D();
     cout<<"\n"<<"Point3D.Move()"<<endl;
-    B.Print_Point3D();
-    B.Move_Point3D(1,0,1);
-    B.Print_Point3D();
+    B.PrintPoint3D();
+    B.MovePoint3D(1,0,1);
+    B.PrintPoint3D();
     cout<<"\n"<<"Point3D.Rotate()"<<endl;
-    C.Print_Point3D();
-    C.RotateZ_Point3D(M_PI/2);
-    C.Print_Point3D();
+    C.PrintPoint3D();
+    C.RotateZPoint3D(M_PI/2);
+    C.PrintPoint3D();
     cout<<"\n"<<"Point3D.Project()"<<endl;
-    A.Print_Point3D();
-    Point3D D(A.Project_Point3D(0,0,1,-4));
-    D.Print_Point3D();
+    A.PrintPoint3D();
+    Point3D D(A.ProjectPoint3D(0,0,1,-4));
+    D.PrintPoint3D();
     cout<<"\n"<<"-----------------------"<<endl;
 
     cout<<"\n"<<"--------Shape3D--------"<<endl;

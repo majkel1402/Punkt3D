@@ -23,13 +23,13 @@ public:
     void SetX(double& x);
     void SetY(double& y);
     void SetZ(double& z);
-    void Move_Point3D(const double &dx, const double &dy, const double &dz);
-    void RotateX_Point3D(const double &fi);
-    void RotateY_Point3D(const double &fi);
-    void RotateZ_Point3D(const double &fi);
-    void RotateE_Point3D(const double &u, const double &v, const double &w, const double &fi);
-    Point3D Project_Point3D(const double &A, const double &B, const double &C, const double &D);
-    void Print_Point3D();
+    void MovePoint3D(const double &dx, const double &dy, const double &dz);
+    void RotateXPoint3D(const double &fi);
+    void RotateYPoint3D(const double &fi);
+    void RotateZPoint3D(const double &fi);
+    void RotateEPoint3D(const double &u, const double &v, const double &w, const double &fi);
+    Point3D ProjectPoint3D(const double &A, const double &B, const double &C, const double &D);
+    void PrintPoint3D();
     friend std::ostream& operator << (std::ostream& os, const Point3D& P);
     Point3D& operator =(const Point3D& P);
 

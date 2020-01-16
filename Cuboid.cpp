@@ -3,8 +3,7 @@
 #include "Shape3D.h"
 #include "Cuboid.h"
 
-int Cuboid::CuboidCount=0;
-
+//Konstruktor domyslny Cuboid.
 Cuboid::Cuboid():ID_Cuboid(CuboidCount)
 {
     maxVertexNumber=3;
@@ -14,6 +13,7 @@ Cuboid::Cuboid():ID_Cuboid(CuboidCount)
     std::cout<<"Konstruktor domyslny Cuboid o ID: "<<ID_Cuboid<<std::endl;
 }
 
+//Destruktor Cuboid.
 Cuboid::~Cuboid()
 {
     delete[] vertex;
@@ -21,6 +21,7 @@ Cuboid::~Cuboid()
     std::cout<<"Destruktor Cuboid o ID: "<<ID_Cuboid<<std::endl;
 }
 
+//Metoda dodajaca Punkty3D do Cuboid.
 void Cuboid::AddVertex(const Point3D& P)
 {
     if(vertexNumber<maxVertexNumber)
@@ -34,6 +35,7 @@ void Cuboid::AddVertex(const Point3D& P)
     }
 }
 
+//Metoda usuwajaca Punkty3D z Cuboid.
 void Cuboid::RemoveVertex()
 {
     if(vertexNumber>0)
@@ -47,6 +49,7 @@ void Cuboid::RemoveVertex()
     }
 }
 
+//Wyswietla informacje o Cuboid.
 void Cuboid::Print()
 {
     std::cout<<"Cuboid o ID: "<<ID_Cuboid<<std::endl;
@@ -57,44 +60,42 @@ void Cuboid::Print()
     }
 }
 
+//Przesuwa po kolei wszyskie punkty Cuboid o wektor [dx,dy,dz].
 void Cuboid::Move(const double& dx, const double& dy, const double& dz)
 {
-    for ( int i=0; i<vertexNumber; ++i)
-        vertex[i]->Move_Point3D(dx,dy,dz);
+    for ( int i=0; i<vertexNumber; ++i)vertex[i]->MovePoint3D(dx,dy,dz);
 }
 
+//Obraca po kolei wszystkie punkty Cuboid dooko³a osi X o k¹t fi.
 void Cuboid::RotateX(const double& fi)
 {
-    for ( int i=0; i<vertexNumber; ++i)
-        vertex[i]->RotateX_Point3D(fi);
+    for ( int i=0; i<vertexNumber; ++i)vertex[i]->RotateXPoint3D(fi);
 }
 
+//Obraca po kolei wszystkie punkty Cuboid dooko³a osi Y o k¹t fi.
 void Cuboid::RotateY(const double& fi)
 {
-    for ( int i=0; i<vertexNumber; ++i)
-        vertex[i]->RotateY_Point3D(fi);
+    for ( int i=0; i<vertexNumber; ++i)vertex[i]->RotateYPoint3D(fi);
 }
 
+//Obraca po kolei wszystkie punkty Cuboid dooko³a osi Z o k¹t fi.
 void Cuboid::RotateZ(const double& fi)
 {
-    for ( int i=0; i<vertexNumber; ++i)
-        vertex[i]->RotateZ_Point3D(fi);
+    for ( int i=0; i<vertexNumber; ++i)vertex[i]->RotateZPoint3D(fi);
 }
 
+//Obraca po kolei wszystkie punkty Cuboid dooko³a wektora [u,v,w] o k¹t fi.
 void Cuboid::RotateE(const double& u, double& v, double& w, double& fi)
 {
-    for ( int i=0; i<vertexNumber; ++i)
-        vertex[i]->RotateE_Point3D(u,v,w,fi);
+    for ( int i=0; i<vertexNumber; ++i)vertex[i]->RotateEPoint3D(u,v,w,fi);
 };
 
+//Rzutuje po kolei wszystkie punkty Cuboid na plaszczyzne Ax+Bx+Cz+D=0.
 Shape3D* Cuboid::Project(const double& A, const double& B, const double& C, const double& D)
 {
     Shape3D* out=new Cuboid();
 
-    for ( int i=0; i<vertexNumber; ++i)
-    {
-        out->AddVertex(vertex[i]->Project_Point3D(A,B,C,D));
-    }
+    for ( int i=0; i<vertexNumber; ++i)out->AddVertex(vertex[i]->ProjectPoint3D(A,B,C,D));
     return out;
 }
 
@@ -110,3 +111,6 @@ void swap(Cuboid& first, Cuboid& second)
     std::swap(first.vertex, second.vertex);
     std::swap(first.maxVertexNumber, second.maxVertexNumber);
 }
+
+//Inicjalizacja licznika obiektow Cuboid.
+int Cuboid::CuboidCount=0;

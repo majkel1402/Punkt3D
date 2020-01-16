@@ -3,8 +3,7 @@
 #include "Shape3D.h"
 #include "PointCloud.h"
 
-int PointCloud::PointCloudCount=0;
-
+//Konstruktor domyslny PointCloud.
 PointCloud::PointCloud():ID_PointCloud(PointCloudCount)
 {
     maxVertexNumber=50;
@@ -14,6 +13,7 @@ PointCloud::PointCloud():ID_PointCloud(PointCloudCount)
     std::cout<<"Konstruktor domyslny PointCloud o ID: "<<ID_PointCloud<<std::endl;
 }
 
+//Destruktor PointCloud.
 PointCloud::~PointCloud()
 {
     delete[] vertex;
@@ -21,6 +21,7 @@ PointCloud::~PointCloud()
     std::cout<<"Destruktor PointCloud o ID: "<<ID_PointCloud<<std::endl;
 }
 
+//Metoda dodajaca Punkty3D do PointCloud.
 void PointCloud::AddVertex(const Point3D& P)
 {
     if(vertexNumber<maxVertexNumber)
@@ -34,6 +35,7 @@ void PointCloud::AddVertex(const Point3D& P)
     }
 }
 
+//Metoda usuwajaca Punkty3D z PointCloud.
 void PointCloud::RemoveVertex()
 {
 
@@ -49,6 +51,7 @@ void PointCloud::RemoveVertex()
 
 }
 
+//Wyswietla informacje o PointCloud.
 void PointCloud::Print()
 {
     std::cout<<"PointCloud o ID: "<<ID_PointCloud<<std::endl;
@@ -59,44 +62,42 @@ void PointCloud::Print()
     }
 }
 
+//Przesuwa po kolei wszyskie punkty PointCloud o wektor [dx,dy,dz].
 void PointCloud::Move(const double& dx, const double& dy, const double& dz)
 {
-    for ( int i=0; i<vertexNumber; ++i)
-        vertex[i]->Move_Point3D(dx,dy,dz);
+    for ( int i=0; i<vertexNumber; ++i)vertex[i]->MovePoint3D(dx,dy,dz);
 }
 
+//Obraca po kolei wszystkie punkty PointCloud dooko³a osi X o k¹t fi.
 void PointCloud::RotateX(const double& fi)
 {
-    for ( int i=0; i<vertexNumber; ++i)
-        vertex[i]->RotateX_Point3D(fi);
+    for ( int i=0; i<vertexNumber; ++i)vertex[i]->RotateXPoint3D(fi);
 }
 
+//Obraca po kolei wszystkie punkty PointCloud dooko³a osi Y o k¹t fi.
 void PointCloud::RotateY(const double& fi)
 {
-    for ( int i=0; i<vertexNumber; ++i)
-        vertex[i]->RotateY_Point3D(fi);
+    for ( int i=0; i<vertexNumber; ++i)vertex[i]->RotateYPoint3D(fi);
 }
 
+//Obraca po kolei wszystkie punkty PointCloud dooko³a osi Z o k¹t fi.
 void PointCloud::RotateZ(const double& fi)
 {
-    for ( int i=0; i<vertexNumber; ++i)
-        vertex[i]->RotateZ_Point3D(fi);
+    for ( int i=0; i<vertexNumber; ++i)vertex[i]->RotateZPoint3D(fi);
 }
 
+//Obraca po kolei wszystkie punkty PointCloud dooko³a wektora [u,v,w] o k¹t fi.
 void PointCloud::RotateE(const double& u, double& v, double& w, double& fi)
 {
-    for ( int i=0; i<vertexNumber; ++i)
-        vertex[i]->RotateE_Point3D(u,v,w,fi);
+    for ( int i=0; i<vertexNumber; ++i)vertex[i]->RotateEPoint3D(u,v,w,fi);
 }
 
+//Rzutuje po kolei wszystkie punkty PointCloud na plaszczyzne Ax+Bx+Cz+D=0.
 Shape3D* PointCloud::Project(const double& A, const double& B, const double& C, const double& D)
 {
     Shape3D* out=new PointCloud();
 
-    for ( int i=0; i<vertexNumber; ++i)
-    {
-        out->AddVertex(vertex[i]->Project_Point3D(A,B,C,D));
-    }
+    for ( int i=0; i<vertexNumber; ++i)out->AddVertex(vertex[i]->ProjectPoint3D(A,B,C,D));
     return out;
 }
 
@@ -112,3 +113,6 @@ void swap(PointCloud& first, PointCloud& second)
     std::swap(first.vertex, second.vertex);
     std::swap(first.maxVertexNumber, second.maxVertexNumber);
 }
+
+//Inicjalizacja licznika obiektow PointCloud.
+int PointCloud::PointCloudCount=0;

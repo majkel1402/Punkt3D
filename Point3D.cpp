@@ -3,8 +3,7 @@
 #include <cmath>
 #include "Point3D.h"
 
-int Point3D::pointCount=0;
-
+//Konstruktor domyslny klasy Punkt3D.
 Point3D::Point3D():ID_Point3D(pointCount)
 {
     std::cout<<"Konstruktor domyslny point3D ID:"<<ID_Point3D<<std::endl;
@@ -14,6 +13,7 @@ Point3D::Point3D():ID_Point3D(pointCount)
     ++pointCount;
 }
 
+//Konstruktor parametryczny klasy Punkt3D. Argumenty X,Y,Z definuja wspolrzedne Xp,Yp,Zp Punktu3D.
 Point3D::Point3D(const double &X,const double &Y,const double &Z):ID_Point3D(pointCount)
 {
     Xp=X;
@@ -23,6 +23,7 @@ Point3D::Point3D(const double &X,const double &Y,const double &Z):ID_Point3D(poi
     ++pointCount;
 }
 
+//Konstruktor kopiujacy klasy Punkt3D.
 Point3D::Point3D(const Point3D& P):ID_Point3D(pointCount)
 {
     Xp=P.Xp;
@@ -32,50 +33,58 @@ Point3D::Point3D(const Point3D& P):ID_Point3D(pointCount)
     ++pointCount;
 }
 
+//Destruktor klasy Punkt3D.
 Point3D::~Point3D()
 {
     std::cout<<"Destruktor Point3D ID:"<<ID_Point3D<<std::endl;
 }
 
+//Zwraca wspolrzedna Xp.
 double Point3D::GetX()
 {
     return Xp;
 }
 
+//Zwraca wspolrzedna Yp.
 double Point3D::GetY()
 {
     return Yp;
 }
 
+//Zwraca wspolrzedna Zp.
 double Point3D::GetZ()
 {
     return Zp;
 }
 
+//Ustawia wspolrzedna Xp.
 void Point3D::SetX(double& x)
 {
     Xp=x;
 }
 
+//Ustawia wspolrzedna Yp.
 void Point3D::SetY(double& y)
 {
     Yp=y;
 }
 
+//Ustawia wspolrzedna Zp.
 void Point3D::SetZ(double& z)
 {
     Zp=z;
 }
 
-
-void Point3D::Move_Point3D(const double &dx, const double &dy, const double &dz)
+//Przesuwa Punkt3D o wektor [dx,dy,dz].
+void Point3D::MovePoint3D(const double &dx, const double &dy, const double &dz)
 {
     Xp+=dx;
     Yp+=dy;
     Zp+=dz;
 }
 
-void Point3D::RotateX_Point3D(const double &fi)
+//Obraca Punkt3D dookola osi X o kat fi wykorzystujac macierz obrotu Rx.
+void Point3D::RotateXPoint3D(const double &fi)
 {
     const double s=sin(fi),c=cos(fi);
     double x,y,z;
@@ -87,7 +96,8 @@ void Point3D::RotateX_Point3D(const double &fi)
     Zp=z;
 }
 
-void Point3D::RotateY_Point3D(const double &fi)
+//Obraca Punkt3D dookola osi Y o kat fi wykorzystujac macierz obrotu Ry.
+void Point3D::RotateYPoint3D(const double &fi)
 {
     const double s=sin(fi),c=cos(fi);
     double x,y,z;
@@ -99,7 +109,8 @@ void Point3D::RotateY_Point3D(const double &fi)
     Zp=z;
 }
 
-void Point3D::RotateZ_Point3D(const double &fi)
+//Obraca Punkt3D dookola osi Z o kat fi wykorzystujac macierz obrotu Rz.
+void Point3D::RotateZPoint3D(const double &fi)
 {
     const double s=sin(fi),c=cos(fi);
     double x,y,z;
@@ -111,7 +122,8 @@ void Point3D::RotateZ_Point3D(const double &fi)
     Zp=z;
 }
 
-void Point3D::RotateE_Point3D(const double &u, const double &v, const double &w, const double &fi)
+//Obraca Punkt3D dookola osi wyznaczonej przez wektor [u,v,w] o kat fi wykorzystujac parametry Eulera.
+void Point3D::RotateEPoint3D(const double &u, const double &v, const double &w, const double &fi)
 {
     const double l=sqrt(u*u+v*v+w*w),s=sin(fi/2.0);
     const double e0=cos(fi/2.0);
@@ -125,20 +137,23 @@ void Point3D::RotateE_Point3D(const double &u, const double &v, const double &w,
     Zp=2.0*z;
 }
 
-Point3D Point3D::Project_Point3D(const double &A, const double &B, const double &C, const double &D)
+//Zwraca rzut Punktu3D na plaszczyzne okreslona wzorem Ax+By+Cz+D=0.
+Point3D Point3D::ProjectPoint3D(const double &A, const double &B, const double &C, const double &D)
 {
     double t=-(D+A*Xp+B*Yp+C*Zp)/(A*A+B*B+C*C);
     Point3D P(Xp+t*A,Yp+t*B,Zp+t*C);
     return P;
 }
 
-void Point3D::Print_Point3D()
+//Wyswietla informacje o Punkcie3D w formacie: ID (Xp,Yp,Zp).
+void Point3D::PrintPoint3D()
 {
     std::cout.precision( 2 );
     std::cout.setf( std::ios::fixed );
     std::cout<<"Punkt o ID:"<<ID_Point3D<<" ("<<Xp<<","<<Yp<<","<<Zp<<")"<<std::endl;
 }
 
+//Przeciazenie operatora << nasladujace dzialanie metody Print_Point3D().
 std::ostream& operator<<(std::ostream& os, const Point3D& P)
 {
 
@@ -149,6 +164,7 @@ std::ostream& operator<<(std::ostream& os, const Point3D& P)
     return os;
 }
 
+//Przeciazenie operatora = zrownujace dwa Punkty3D.
 Point3D& Point3D::operator =(const Point3D& P)
 {
     if (this != &P)
@@ -161,4 +177,6 @@ Point3D& Point3D::operator =(const Point3D& P)
     return *this;
 }
 
+//Inicjalizacja licznika obiektow typu Punkt3D.
+int Point3D::pointCount=0;
 
